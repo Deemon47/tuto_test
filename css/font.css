@@ -1,0 +1,269 @@
+/* ========================================================
+*
+* Amsterdam - premium admin template
+*
+* ========================================================
+*
+* File: font.css;
+* Description: Font Awesome - the iconic font designed for use with Twitter Bootstrap
+* Version: 1.0
+* Source: http://fortawesome.github.com/Font-Awesome/
+* License
+  -------------------------------------------------------
+  The Font Awesome webfont, CSS, and LESS files are licensed under CC BY 3.0:
+  http://creativecommons.org/licenses/by/3.0/ A mention of
+  'Font Awesome - http://fortawesome.github.com/Font-Awesome' in human-readable
+  source code is considered acceptable attribution (most common on the web).
+  If human readable source code is not available to the end user, a mention in
+  an 'About' or 'Credits' screen is considered acceptable (most common in desktop
+  or mobile software).
+*
+* ======================================================== */
+
+@font-face {
+  font-family: "FontAwesome";
+  src: url('/fonts/fontawesome-webfont.eot');
+  src: url('/fonts/fontawesome-webfont.eot?#iefix') format('eot'), url('/fonts/fontawesome-webfont.woff') format('woff'), url('/fonts/fontawesome-webfont.ttf') format('truetype'), url('/fonts/fontawesome-webfont.svg#FontAwesome') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*  Font Awesome styles
+    ------------------------------------------------------- */
+[class^="awico-"]:before, [class*=" awico-"]:before {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+}
+
+
+/*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen readers do not read off random characters that represent icons */
+
+.awico-glass:before                { content: "\f000"; }
+.awico-music:before                { content: "\f001"; }
+.awico-search:before               { content: "\f002"; }
+.awico-envelope:before             { content: "\f003"; }
+.awico-heart:before                { content: "\f004"; }
+.awico-star:before                 { content: "\f005"; }
+.awico-star-empty:before           { content: "\f006"; }
+.awico-user:before                 { content: "\f007"; }
+.awico-film:before                 { content: "\f008"; }
+.awico-th-large:before             { content: "\f009"; }
+.awico-th:before                   { content: "\f00a"; }
+.awico-th-list:before              { content: "\f00b"; }
+.awico-ok:before                   { content: "\f00c"; }
+.awico-remove:before               { content: "\f00d"; }
+.awico-zoom-in:before              { content: "\f00e"; }
+
+.awico-zoom-out:before             { content: "\f010"; }
+.awico-off:before                  { content: "\f011"; }
+.awico-signal:before               { content: "\f012"; }
+.awico-cog:before                  { content: "\f013"; }
+.awico-trash:before                { content: "\f014"; }
+.awico-home:before                 { content: "\f015"; }
+.awico-file:before                 { content: "\f016"; }
+.awico-time:before                 { content: "\f017"; }
+.awico-road:before                 { content: "\f018"; }
+.awico-download-alt:before         { content: "\f019"; }
+.awico-download:before             { content: "\f01a"; }
+.awico-upload:before               { content: "\f01b"; }
+.awico-inbox:before                { content: "\f01c"; }
+.awico-play-circle:before          { content: "\f01d"; }
+.awico-repeat:before               { content: "\f01e"; }
+
+/* \f020 doesn't work in Safari. all shifted one down */
+.awico-refresh:before              { content: "\f021"; }
+.awico-list-alt:before             { content: "\f022"; }
+.awico-lock:before                 { content: "\f023"; }
+.awico-flag:before                 { content: "\f024"; }
+.awico-headphones:before           { content: "\f025"; }
+.awico-volume-off:before           { content: "\f026"; }
+.awico-volume-down:before          { content: "\f027"; }
+.awico-volume-up:before            { content: "\f028"; }
+.awico-qrcode:before               { content: "\f029"; }
+.awico-barcode:before              { content: "\f02a"; }
+.awico-tag:before                  { content: "\f02b"; }
+.awico-tags:before                 { content: "\f02c"; }
+.awico-book:before                 { content: "\f02d"; }
+.awico-bookmark:before             { content: "\f02e"; }
+.awico-print:before                { content: "\f02f"; }
+
+.awico-camera:before               { content: "\f030"; }
+.awico-font:before                 { content: "\f031"; }
+.awico-bold:before                 { content: "\f032"; }
+.awico-italic:before               { content: "\f033"; }
+.awico-text-height:before          { content: "\f034"; }
+.awico-text-width:before           { content: "\f035"; }
+.awico-align-left:before           { content: "\f036"; }
+.awico-align-center:before         { content: "\f037"; }
+.awico-align-right:before          { content: "\f038"; }
+.awico-align-justify:before        { content: "\f039"; }
+.awico-list:before                 { content: "\f03a"; }
+.awico-indent-left:before          { content: "\f03b"; }
+.awico-indent-right:before         { content: "\f03c"; }
+.awico-facetime-video:before       { content: "\f03d"; }
+.awico-picture:before              { content: "\f03e"; }
+
+.awico-pencil:before               { content: "\f040"; }
+.awico-map-marker:before           { content: "\f041"; }
+.awico-adjust:before               { content: "\f042"; }
+.awico-tint:before                 { content: "\f043"; }
+.awico-edit:before                 { content: "\f044"; }
+.awico-share:before                { content: "\f045"; }
+.awico-check:before                { content: "\f046"; }
+.awico-move:before                 { content: "\f047"; }
+.awico-step-backward:before        { content: "\f048"; }
+.awico-fast-backward:before        { content: "\f049"; }
+.awico-backward:before             { content: "\f04a"; }
+.awico-play:before                 { content: "\f04b"; }
+.awico-pause:before                { content: "\f04c"; }
+.awico-stop:before                 { content: "\f04d"; }
+.awico-forward:before              { content: "\f04e"; }
+
+.awico-fast-forward:before         { content: "\f050"; }
+.awico-step-forward:before         { content: "\f051"; }
+.awico-eject:before                { content: "\f052"; }
+.awico-chevron-left:before         { content: "\f053"; }
+.awico-chevron-right:before        { content: "\f054"; }
+.awico-plus-sign:before            { content: "\f055"; }
+.awico-minus-sign:before           { content: "\f056"; }
+.awico-remove-sign:before          { content: "\f057"; }
+.awico-ok-sign:before              { content: "\f058"; }
+.awico-question-sign:before        { content: "\f059"; }
+.awico-info-sign:before            { content: "\f05a"; }
+.awico-screenshot:before           { content: "\f05b"; }
+.awico-remove-circle:before        { content: "\f05c"; }
+.awico-ok-circle:before            { content: "\f05d"; }
+.awico-ban-circle:before           { content: "\f05e"; }
+
+.awico-arrow-left:before           { content: "\f060"; }
+.awico-arrow-right:before          { content: "\f061"; }
+.awico-arrow-up:before             { content: "\f062"; }
+.awico-arrow-down:before           { content: "\f063"; }
+.awico-share-alt:before            { content: "\f064"; }
+.awico-resize-full:before          { content: "\f065"; }
+.awico-resize-small:before         { content: "\f066"; }
+.awico-plus:before                 { content: "\f067"; }
+.awico-minus:before                { content: "\f068"; }
+.awico-asterisk:before             { content: "\f069"; }
+.awico-exclamation-sign:before     { content: "\f06a"; }
+.awico-gift:before                 { content: "\f06b"; }
+.awico-leaf:before                 { content: "\f06c"; }
+.awico-fire:before                 { content: "\f06d"; }
+.awico-eye-open:before             { content: "\f06e"; }
+
+.awico-eye-close:before            { content: "\f070"; }
+.awico-warning-sign:before         { content: "\f071"; }
+.awico-plane:before                { content: "\f072"; }
+.awico-calendar:before             { content: "\f073"; }
+.awico-random:before               { content: "\f074"; }
+.awico-comment:before              { content: "\f075"; }
+.awico-magnet:before               { content: "\f076"; }
+.awico-chevron-up:before           { content: "\f077"; }
+.awico-chevron-down:before         { content: "\f078"; }
+.awico-retweet:before              { content: "\f079"; }
+.awico-shopping-cart:before        { content: "\f07a"; }
+.awico-folder-close:before         { content: "\f07b"; }
+.awico-folder-open:before          { content: "\f07c"; }
+.awico-resize-vertical:before      { content: "\f07d"; }
+.awico-resize-horizontal:before    { content: "\f07e"; }
+
+.awico-bar-chart:before            { content: "\f080"; }
+.awico-twitter-sign:before         { content: "\f081"; }
+.awico-facebook-sign:before        { content: "\f082"; }
+.awico-camera-retro:before         { content: "\f083"; }
+.awico-key:before                  { content: "\f084"; }
+.awico-cogs:before                 { content: "\f085"; }
+.awico-comments:before             { content: "\f086"; }
+.awico-thumbs-up:before            { content: "\f087"; }
+.awico-thumbs-down:before          { content: "\f088"; }
+.awico-star-half:before            { content: "\f089"; }
+.awico-heart-empty:before          { content: "\f08a"; }
+.awico-signout:before              { content: "\f08b"; }
+.awico-linkedin-sign:before        { content: "\f08c"; }
+.awico-pushpin:before              { content: "\f08d"; }
+.awico-external-link:before        { content: "\f08e"; }
+
+.awico-signin:before               { content: "\f090"; }
+.awico-trophy:before               { content: "\f091"; }
+.awico-github-sign:before          { content: "\f092"; }
+.awico-upload-alt:before           { content: "\f093"; }
+.awico-lemon:before                { content: "\f094"; }
+.awico-phone:before                { content: "\f095"; }
+.awico-check-empty:before          { content: "\f096"; }
+.awico-bookmark-empty:before       { content: "\f097"; }
+.awico-phone-sign:before           { content: "\f098"; }
+.awico-twitter:before              { content: "\f099"; }
+.awico-facebook:before             { content: "\f09a"; }
+.awico-github:before               { content: "\f09b"; }
+.awico-unlock:before               { content: "\f09c"; }
+.awico-credit-card:before          { content: "\f09d"; }
+.awico-rss:before                  { content: "\f09e"; }
+
+.awico-hdd:before                  { content: "\f0a0"; }
+.awico-bullhorn:before             { content: "\f0a1"; }
+.awico-bell:before                 { content: "\f0a2"; }
+.awico-certificate:before          { content: "\f0a3"; }
+.awico-hand-right:before           { content: "\f0a4"; }
+.awico-hand-left:before            { content: "\f0a5"; }
+.awico-hand-up:before              { content: "\f0a6"; }
+.awico-hand-down:before            { content: "\f0a7"; }
+.awico-circle-arrow-left:before    { content: "\f0a8"; }
+.awico-circle-arrow-right:before   { content: "\f0a9"; }
+.awico-circle-arrow-up:before      { content: "\f0aa"; }
+.awico-circle-arrow-down:before    { content: "\f0ab"; }
+.awico-globe:before                { content: "\f0ac"; }
+.awico-wrench:before               { content: "\f0ad"; }
+.awico-tasks:before                { content: "\f0ae"; }
+
+.awico-filter:before               { content: "\f0b0"; }
+.awico-briefcase:before            { content: "\f0b1"; }
+.awico-fullscreen:before           { content: "\f0b2"; }
+
+.awico-group:before                { content: "\f0c0"; }
+.awico-link:before                 { content: "\f0c1"; }
+.awico-cloud:before                { content: "\f0c2"; }
+.awico-beaker:before               { content: "\f0c3"; }
+.awico-cut:before                  { content: "\f0c4"; }
+.awico-copy:before                 { content: "\f0c5"; }
+.awico-paper-clip:before           { content: "\f0c6"; }
+.awico-save:before                 { content: "\f0c7"; }
+.awico-sign-blank:before           { content: "\f0c8"; }
+.awico-reorder:before              { content: "\f0c9"; }
+.awico-list-ul:before              { content: "\f0ca"; }
+.awico-list-ol:before              { content: "\f0cb"; }
+.awico-strikethrough:before        { content: "\f0cc"; }
+.awico-underline:before            { content: "\f0cd"; }
+.awico-table:before                { content: "\f0ce"; }
+
+.awico-magic:before                { content: "\f0d0"; }
+.awico-truck:before                { content: "\f0d1"; }
+.awico-pinterest:before            { content: "\f0d2"; }
+.awico-pinterest-sign:before       { content: "\f0d3"; }
+.awico-google-plus-sign:before     { content: "\f0d4"; }
+.awico-google-plus:before          { content: "\f0d5"; }
+.awico-money:before                { content: "\f0d6"; }
+.awico-caret-down:before           { content: "\f0d7"; }
+.awico-caret-up:before             { content: "\f0d8"; }
+.awico-caret-left:before           { content: "\f0d9"; }
+.awico-caret-right:before          { content: "\f0da"; }
+.awico-columns:before              { content: "\f0db"; }
+.awico-sort:before                 { content: "\f0dc"; }
+.awico-sort-down:before            { content: "\f0dd"; }
+.awico-sort-up:before              { content: "\f0de"; }
+
+.awico-envelope-alt:before         { content: "\f0e0"; }
+.awico-linkedin:before             { content: "\f0e1"; }
+.awico-undo:before                 { content: "\f0e2"; }
+.awico-legal:before                { content: "\f0e3"; }
+.awico-dashboard:before            { content: "\f0e4"; }
+.awico-comment-alt:before          { content: "\f0e5"; }
+.awico-comments-alt:before         { content: "\f0e6"; }
+.awico-bolt:before                 { content: "\f0e7"; }
+.awico-sitemap:before              { content: "\f0e8"; }
+.awico-umbrella:before             { content: "\f0e9"; }
+.awico-paste:before                { content: "\f0ea"; }
+
+.awico-user-md:before              { content: "\f200"; }
