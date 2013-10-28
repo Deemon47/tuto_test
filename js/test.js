@@ -13,12 +13,15 @@ _.test=
 	'table_o':false,
 	'pager':false,
 	'sections_o':false,
+	'selected_section':false,
+	'_init_after':['m_win'],
 	'_init':function()
 	{
-		this.sections_o=$('._sctions').change(function(){
+		this.sections_o=$('._sections').on('change','select',function(){
 			_.test.getSection($(this));
 		});
-
+		_.m_win.add({'index':'confirm','click':'._show_remove','data':{'content':'<p>Вы уверены, что хотите удалить выбранные учебники?</p><div class="i button red"> <label ><button class="_close"><span class="awico-ok"> Да</span></button></label> </div><div class="i button green"> <label ><button class="_close"> <span class="awico-ban-circle"> Отмена</span></button></label> </div>'}, /* 'class':'', 'content_prot':'modal_win'*/});
+		_.m_win.win_obj.on('click.remove','.button.red',this.removeSelected);
 		this.pager=_.pager.get(function(){
 
 			var data=_.pager.getLimit(_.test.pager);
@@ -30,19 +33,37 @@ _.test=
 
 
 	},
+	'removeSelected':function()
+	{
+		elog(_.test.table_o,'');
+	},
 	'getSection':function(obj)
 	{
-		var parents=[];
-		if(argumetns.length!=0)
+		var parents=false;
+		if(arguments.length!=0)
 		{
-			var o=$(this).parents('[data-section]:first');
-			parents.push(o.data('section'))
-			o.prevAll().each(function(){
-				parents.unshift($(this).data('section'));
-			});
+			var val=obj.val();
+			parents=[];
+			var p_o=obj.parents('.select:first')
+				.nextAll().remove().end();
+			if(val=='-')
+			{
+				p_o=p_o.prev();
+				this.selected_section=(p_o.length>0)?p_o.find('select').val():false;
+				this.getData(0,1);
+				return;
+			}
+			else
+			{
+				p_o.prevAll().find('select').each(function(){
+					parents.push($(this).val());
+				});
+				parents.push(val);
+				this.selected_section=val;
+			}
 		}
-		this._ajax(parent,{'action':'get_section','desc':'Идет загрузка разделов'/*,'sys':false,'params':false*/});
-		;
+		this._ajax(parents,{'action':'get_section','desc':'Идет загрузка разделов'/*,'sys':false,'params':false*/});
+		this.getData(0,1);
 	},
 	'getData':function(limit,page)
 	{
@@ -83,12 +104,17 @@ _.test=
 			}
 			table+='</tbody></table>';
 			this.table_o.html(table);
-			this.found_o.val(data.total);
 			_.pager.update(this.pager,data.total);
 		}
 		else if (e.action=='get_section')
 		{
-
+			var options='<option>-</option>';
+			for(var key in data)
+			{
+				var val=data[key];
+				options+='<option value="'+val.id+'">'+val.name+'</option>'
+			}
+			this.sections_o.append('<div class="i select"> <label> <select >'+options+' </select> </label> </div>');
 		}
 		elog([data,e],'data');
 	}

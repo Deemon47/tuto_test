@@ -48,7 +48,9 @@ if(count($LINKS)>0 && $LINKS[0]=='admin')
 	<script src="/js/prot_sys.js"></script>
 	<script src="/js/mess.js"></script>
 	<script src="/js/page.js"></script>
+	<script src="/js/hot_keys.js"></script>
 	<script src="/js/pager.js"></script>
+	<script src="/js/m_win.js"></script>
 	<script src="/js/test.js"></script>
 </head>
 <body>
@@ -81,6 +83,12 @@ if(count($LINKS)>0 && $LINKS[0]=='admin')
 		<div class="m-wrap-cont">
 			<div class="title _text">Идет загрузка контента...</div>
 		</div>
+	</div>
+</div>
+<div class="_modal_win">
+	<div class="_wrapper" >&nbsp;</div>
+	<div class="_win">
+		<div class="_inner"></div>
 	</div>
 </div>
 </body>

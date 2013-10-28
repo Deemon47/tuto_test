@@ -145,3 +145,31 @@ function getJSArr($arr,$save_spaces=false)
 	}
 	return '{'.$res.'}';
 }
+/**
+ * Строку идентификаторов в массив
+ * @param  string $str
+ * @param  string $d
+ * @return array      Массив идентификаторов
+ */
+function getIdsArr($str,$d='#')
+{
+	$str=preg_replace(array('/^'.$d.'/','/'.$d.'$/'),'',$str);
+	return ($str=='')?array(): explode($d.$d,$str);
+}
+/**
+ * Массив идентификаторов в строку
+ * @param  array $arr
+ * @param  string $d
+ * @return string
+ */
+function getIdsStr($arr,$d='#')
+{
+	if(!empty($arr))
+	{
+		sort($arr);
+		$str=implode($d.$d,array_unique(array_diff($arr,array(''))));
+		return ($str=='' ? '' : $d.$str.$d);
+	}
+	return '';
+
+}

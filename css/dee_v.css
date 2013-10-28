@@ -181,3 +181,7 @@ FIELDSET FIELDSET{margin-left:20px}
 ._modal_win ._inner{border:solid 1px; padding:10px; border-radius:3px;background:#fafafa;text-align:left;box-shadow: 0 0 10px 0 #262626;}
 ._modal_win .content{padding-top:10px;}
 
+/*specific*/
+.table.books .buttons li{width:auto !important ;}
+.table.books .buttons{width:100%;}
+.table.books .buttons li._add{float:right !important ;}
