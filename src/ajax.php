@@ -39,7 +39,7 @@ else
 			if(isset($_FILES['image']) && $_FILES['image']['error']==0 )
 			{
 				include('src/resizeImage.php');
-				$image_name=uniqid().preg_replace('#(\.[^\.]+)$#', '\1', $_FILES['image']['name']);
+				$image_name=uniqid().preg_replace('#^.*(\.[^\.]+)$#', '\1', $_FILES['image']['name']);
 				foreach($CFG['image_size'] as $d_name=>$val)
 				{
 					 resizeImage($_FILES['image']['tmp_name'],$val[0],$val[1],array('save_path'=>"images/$d_name/$image_name"));/*save_path, return_img, water_mark_path, proportions, bg*/
