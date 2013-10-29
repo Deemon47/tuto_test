@@ -12,10 +12,10 @@ $CONTENT=<<<HTML
 		<div class="title">
 			<ul class="buttons">
 				<li title="Удалить" class="_show_remove">
-					<span class="awico-remove-sign"></span> Удалить выбранные книги
+					<span class="awico-remove-sign"></span> Удалить выбранные учебники
 				</li>
 				<li title="Добавить" class="_add _book">
-					<span class="awico-plus-sign"></span> Добавить книгу
+					<span class="awico-plus-sign"></span> Добавить учебиник
 				</li>
 			</ul>
 
@@ -129,8 +129,8 @@ $CONTENT=<<<HTML
 				</span>
 			</label>
 		</div>
-		<div class="i button green">
-			<label ><button type="submit">Сохранить главу <i class="awico-ok-sign"></i></button></label>
+		<div class="i button green ">
+			<label ><button class="_save_chapter">Сохранить главу <i class="awico-ok-sign"></i></button></label>
 		</div>
 
 

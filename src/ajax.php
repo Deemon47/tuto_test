@@ -58,6 +58,11 @@ else
 					.($image_name==''?'':'",`image_path`="'.$image_name)
 					.'",`desc`="'.$D['desc']
 					.'", `status` ="'.(isset($D['hidden'])?'hidden':'public').'" WHERE id='.$D['id']);
+				if(isset($D['chapters']))
+				{
+					conn::query('set @a=0;');
+					conn::query("UPDATE book_chapters SET `order` = (SELECT @a := @a + 1) WHERE book_id={$D['id']} ORDER BY FIELD(id,".implode(', ',array_reverse($D['chapters'])).") DESC LIMIT ".count($D['chapters']));
+				}
 			}
 			die(print_r([$_POST,$_FILES,elog('elog_return'),$data]).//tmp
 				'<script>window.parent._.test._response('.$data.',{action:"save_book"})</script>'
@@ -75,7 +80,7 @@ else
 			if(!is_numeric($D))
 				break;
 			$data=conn::selectOneRow(' id,name,`desc`,image_path,status FROM books WHERE id='.$D);
-			$data->chapters=conn::selectAll('id,name from book_chapters where book_id='.$data->id);
+			$data->chapters=conn::selectAll('id,name from book_chapters where book_id='.$data->id.' ORDER by `order`');
 
 			break;
 		case 'remove_books':
@@ -85,7 +90,30 @@ else
 			conn::query('DELETE FROM `book_chapters` WHERE book_id  IN('.$ids.')');
 			conn::query('DELETE FROM `books` WHERE id  IN('.$ids.')');
 			break;
-		case '':
+		case 'save_chapter':
+			if(!isset($D['book_id'])||!isset($D['name'])||!isset($D['desc'])||!isset($D['content'])|| !isset($D['video'])||!isset($D['tags'])||!isset($D['id']))
+				break;
+			$data=true;
+			if($D['id']=='new')
+				$data=conn::query('INSERT INTO book_chapters (`name`,video_link,`desc`,`content`,`tags`,book_id)VALUES("'.$D['name'].'","'.$D['video'].'","'.$D['desc'].'","'.$D['content'].'","'.$D['tags'].'",'.$D['book_id'].')',true);
+			else
+				conn::query('UPDATE book_chapters SET `name`="'.$D['name']
+					.'", video_link="'.$D['video']
+					.'",`desc`="'.$D['desc']
+					.'",`content`="'.$D['content']
+					.'",`tags`="'.$D['tags'].'" WHERE id='.$D['id']);
+
+			// $tags=array_map('mb_strtoupper',array_map('trim',explode(',', $tags)));
+			// if(count($tags)>0)
+			// {
+			// 	conn::query('INSERT IGNORE INTO meta_tags (tag)VALUES("'.implode('"),("',$tags).'")');
+			// 	conn::selectAll('id from meta_tags where ')
+			// }
+			break;
+		case 'load_chapter':
+			if(!is_numeric($D))
+				break;
+			$data=conn::selectOneRow('* FROM book_chapters WHERE id='.$D);
 			break;
 	}
 }

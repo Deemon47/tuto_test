@@ -9,7 +9,7 @@ $CFG['mysql_pass']='root';
 //mysql base name
 $CFG['mysql_base']='tuto_test';
 //show debug block
-$CFG['show_debug']=true;
+$CFG['show_debug']=false;
 //show debug messages of type
 $CFG['watch_actions']=
 [

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50531
 File Encoding         : 65001
 
-Date: 2013-10-29 18:25:51
+Date: 2013-10-29 23:50:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,21 +21,22 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `book_chapters`;
 CREATE TABLE `book_chapters` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `section_id` int(10) unsigned NOT NULL COMMENT 'Идентификатор раздела',
   `book_id` int(10) unsigned NOT NULL COMMENT 'Идентификатор книги',
   `name` varchar(300) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Название',
   `desc` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Краткое описание',
   `content` mediumtext COLLATE utf8_unicode_ci NOT NULL COMMENT 'Содержание',
   `video_link` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Ссылка на видео',
+  `tags` text COLLATE utf8_unicode_ci NOT NULL,
   `order` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'Индекс сортировки',
   PRIMARY KEY (`id`),
-  KEY `book_id` (`book_id`),
-  KEY `section_id` (`section_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Главы';
+  KEY `book_id` (`book_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Главы';
 
 -- ----------------------------
 -- Records of book_chapters
 -- ----------------------------
+INSERT INTO `book_chapters` VALUES ('1', '1', 'Название', 'asdf', 'asdf', 'asdf', 'asdf', '1');
+INSERT INTO `book_chapters` VALUES ('2', '1', 'Еще глава', 'фыва', 'фыва', 'фыв', 'фыва', '2');
 
 -- ----------------------------
 -- Table structure for books
@@ -51,7 +52,7 @@ CREATE TABLE `books` (
   PRIMARY KEY (`id`),
   KEY `section_id_and_status` (`status`,`section_id`) USING BTREE,
   KEY `section_id` (`section_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Учебники';
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Учебники';
 
 -- ----------------------------
 -- Records of books
@@ -59,38 +60,7 @@ CREATE TABLE `books` (
 INSERT INTO `books` VALUES ('1', '4', 'Название', '526f64dc336c7564059_10151929405349936_361113990_n.jpg', 'Краткое содержание', 'hidden');
 INSERT INTO `books` VALUES ('2', '4', 'Название', '526f6965ace1eArty.jpg', 'Трололо', 'hidden');
 INSERT INTO `books` VALUES ('3', '4', 'Трололво', '526f759e2b5a610266951966_33dc05bf51_o.jpg', 'Тролол', 'hidden');
-
--- ----------------------------
--- Table structure for meta_data
--- ----------------------------
-DROP TABLE IF EXISTS `meta_data`;
-CREATE TABLE `meta_data` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `chapter_id` int(10) unsigned NOT NULL,
-  `tag_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tag` (`tag_id`),
-  KEY `chapter_id` (`chapter_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Связка глав униг и тегов';
-
--- ----------------------------
--- Records of meta_data
--- ----------------------------
-
--- ----------------------------
--- Table structure for meta_tags
--- ----------------------------
-DROP TABLE IF EXISTS `meta_tags`;
-CREATE TABLE `meta_tags` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tag` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `tag` (`tag`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Индекс тегов';
-
--- ----------------------------
--- Records of meta_tags
--- ----------------------------
+INSERT INTO `books` VALUES ('7', '4', 'Еще учебник', '527002582325d20732-1920x1080.jpg', 'фывафыва', 'hidden');
 
 -- ----------------------------
 -- Table structure for sections

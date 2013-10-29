@@ -17,6 +17,7 @@ _.test=
 	'book_o':false,
 	'chapters_o':false,
 	'chapter_o':false,
+	'chapter':false,
 	'_init_after':['m_win'],
 	'_init':function()
 	{
@@ -28,9 +29,10 @@ _.test=
 		}).end();
 		this.chapters_o=this.book_o
 			.find('._chapters').find('ul').on('dblclick','li',function(){
-				elog('','edit');
+				_.test._ajax($(this).data('id'),{'action':'load_chapter','desc':'Загрузка главы'/*,'sys':false,'params':false*/});
 			}).sortable({'axis':'y'}).end();
-		this.chapter_o=$('fieldset.chapter');
+		this.chapter_o=$('fieldset.chapter')
+			.find('._save_chapter').click(this.saveChapter).end();
 		this.selected_section_o=$('._section');
 		_.m_win.add({'index':'confirm','click':'._show_remove','data':{'content':'<p>Вы уверены, что хотите удалить выбранные учебники?</p><div class="i button red"> <label ><button class="_close"><span class="awico-ok"> Да, удалить</span></button></label> </div><div class="i button green"> <label ><button class="_close"> <span class="awico-ban-circle"> Нет, не удалять</span></button></label> </div>'}, /* 'class':'', 'content_prot':'modal_win'*/});
 		_.m_win.win_obj.on('click.remove','.button.red',this.removeSelected);
@@ -60,6 +62,7 @@ _.test=
 			_.mess.show('Прежде нужно выбрать раздел','error'/*,{'title':'','func':null,'c_delay':10}*/);
 			return false;
 		}
+		_.loading.start('save_book','Идет сохранение учебника');
 	},
 	'editBook':function(id)
 	{
@@ -116,6 +119,8 @@ _.test=
 		}
 		this._ajax(parents,{'action':'get_section','desc':'Идет загрузка разделов'/*,'sys':false,'params':false*/});
 		this.getData(10,0);
+		this.book_o.hide();
+		this.chapter_o.hide();
 	},
 	'getData':function(limit,page)
 	{
@@ -133,7 +138,14 @@ _.test=
 			'chapters':[],
 		},data);
 
-			this.chapters_o[(arguments.length==0)?'hide':'show']();
+		;
+		var c=this.chapters_o[(arguments.length==0)?'hide':'show']().find('ul').empty();
+		for(var key in data.chapters)
+		{
+			var val=data.chapters[key];
+			c.append('<li data-id="'+val.id+'"> <input type="hidden" name="_d[chapters][]" value="'+val.id+'"/><span>'+val.name+'</span></li>');
+
+		}
 		this.book_o.show()
 			.find('._id').val(data.id).end()
 			.find('._desc').val(data.desc).end()
@@ -143,6 +155,18 @@ _.test=
 			.find('input:file').replaceWith('<input type="file" name="image" />');
 		this.chapter_o.hide();
 	},
+	'saveChapter':function()
+	{
+		for(var key in _.test.chapter)
+		{
+			if(key!=='id')
+			_.test.chapter[key]=
+				_.test.chapter_o.find('._'+key).val();
+		}
+		_.test.chapter.book_id=_.test.book_o.find('._id').val();
+		_.test._ajax(_.test.chapter,{'action':'save_chapter','desc':'Сохранение главы'/*,'sys':false,'params':false*/});
+
+	},
 	'setChapter':function(data)
 	{
 		data=$.extend({
@@ -151,14 +175,15 @@ _.test=
 			'name':'',
 			'video':'',
 			'content':'',
+			'tags':'',
 		},data);
+		this.chapter=data;
 		this.chapter_o.show()
-			.find('._id').val(data.id).end()
 			.find('._desc').val(data.desc).end()
 			.find('._name').val(data.name).end()
-			.find('._status').prop('checked',data.status=='hidden').end()
-			.find('._image').html((data.image_path==''?'':'<img src="/images/site/'+data.image_path+'" />')).end()
-			.find('input:file').replaceWith('<input type="file" name="image" />');
+			.find('._content').val(data.content).end()
+			.find('._video').val(data.video).end()
+			.find('._tags').val(data.tags);
 	},
 	'_response':function(data,e)
 	{
@@ -229,12 +254,33 @@ _.test=
 				this.setBook({'id':data});
 				_.mess.show('Страница добавлена','success'/*,{'title':'','func':null,'c_delay':10}*/);
 			}
+			_.loading.stop('save_book');
 			this.getData(10,0);
 		}
 		else if(e.action=='edit_book')
 		{
 			this.setBook(data);
 		}
-		elog([data,e],'data');
+		else if(e.action=='load_chapter')
+		{
+			this.setChapter(data);
+		}
+		else if(e.action=='save_chapter')
+		{
+
+			if(data===true)
+			{
+				this.chapters_o.find('ul li[data-id='+this.chapter.id+'] span').text(this.chapter.name);
+				_.mess.show('Глава обновлена','success'/*,{'title':'','func':null,'c_delay':10}*/);
+			}
+			else
+			{
+				this.chapter.id=data;
+				this.chapters_o.find('ul').append('<li data-id="'+data+'"><input type="hidden" name="_d[chapters][]" value="'+data+'"/><span>'+this.chapter.name+'</span></li>');
+				_.mess.show('Глава добавлена','success'/*,{'title':'','func':null,'c_delay':10}*/);
+			}
+
+		}
+		// elog([data,e],'data');
 	}
 }
