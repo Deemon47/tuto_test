@@ -22,3 +22,9 @@ $CFG['watch_actions']=
 	'_SESSION',
 	'_INCLUDED'
 ];
+//Sizes
+$CFG['image_size']=
+[
+	'site'=>[120,120],//120px X 120px
+	'thumb'=>[50,50],//50px X 50px
+];

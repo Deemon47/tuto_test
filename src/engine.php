@@ -15,6 +15,7 @@ $CFG=
 	'mysql_base'=>'',
 	'show_debug'=>false,
 	'watch_actions'=>[],
+	'image_size'=>[],
 
 ];
 /**

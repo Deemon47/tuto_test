@@ -91,5 +91,6 @@ if(count($LINKS)>0 && $LINKS[0]=='admin')
 		<div class="_inner"></div>
 	</div>
 </div>
+<iframe name="ajax" src=""></iframe>
 </body>
 </html>

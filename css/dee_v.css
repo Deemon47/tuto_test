@@ -185,3 +185,9 @@ FIELDSET FIELDSET{margin-left:20px}
 .table.books .buttons li{width:auto !important ;}
 .table.books .buttons{width:100%;}
 .table.books .buttons li._add{float:right !important ;}
+iframe[name=ajax]{display:none;}
+.book textarea{height:300px;}
+._image {background:url("/images/style/bg/no-image.png") no-repeat center left ;width:100%;height:100px}
+._image img{height:100px}
+td._edit{font-size:20px;}
+td._edit span{cursor:pointer}
