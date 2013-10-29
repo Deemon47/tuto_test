@@ -44,6 +44,7 @@ if(count($LINKS)>0 && $LINKS[0]=='admin')
 	<link rel="stylesheet" href="/css/dee_v.css">
 	<link rel="stylesheet" href="/css/font.css">
 	<script src="/js/jquery.js"></script>
+	<script src="/js/jquery-ui.js"></script>
 	<script src="/js/engine.js"></script>
 	<script src="/js/prot_sys.js"></script>
 	<script src="/js/mess.js"></script>

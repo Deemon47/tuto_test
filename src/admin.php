@@ -1,13 +1,13 @@
 <?php
 $CONTENT=<<<HTML
 <fieldset>
-	<legend>Выбор раздела</legend>
+	<legend><i class="awico-folder-open"></i> Выбор раздела</legend>
 	<div class="_sections">
 	</div>
 
 </fieldset>
 <fieldset>
-	<legend>Учебники</legend>
+	<legend><i class="awico-list-alt"></i> Учебники</legend>
 	<div class="table  books">
 		<div class="title">
 			<ul class="buttons">
@@ -25,8 +25,9 @@ $CONTENT=<<<HTML
 		<div class="bottom"></div>
 	</div>
 </fieldset>
+
 <fieldset class="book" style="display:none">
-		<legend>Учебник</legend>
+		<legend><i class=" awico-book"></i> Учебник</legend>
 			<form action="/ajax?_a=save_book&_i=x" method="post" enctype="multipart/form-data" target="ajax">
 				<input type="hidden" class="_id" name="_d[id]" value="new">
 				<div class="i text medium">
@@ -47,8 +48,8 @@ $CONTENT=<<<HTML
 					</label>
 				</div>
 
-				<div class="i text">
-				<div class="_image"><img src="" alt=""></div>
+				<div class="i text medium">
+					<div class="_image"><img src="" alt=""></div>
 					<label>
 						Картинка
 						<span>
@@ -71,10 +72,67 @@ $CONTENT=<<<HTML
 				</label>
 			</div>
 
+				<fieldset class="_chapters">
+					<legend><i class="awico-tasks"></i> Главы</legend>
+					<ul class="list num">
+
+					</ul>
+					<p class="awico-question-sign"> Для сортировки потяните название главы, для редактирования - двойной клик</p>
+					<div class="i button _add_chapter">
+						<label ><button type="button">Добавить главу <i class="awico-plus-sign"></i></button></label>
+					</div>
+				</fieldset>
+
 				<div class="i button green">
-					<label ><button type="submit">Сохранить</button></label>
+					<label ><button type="submit">Сохранить учебиник <i class="awico-ok-sign"></i></button></label>
 				</div>
 			</form>
+</fieldset>
+<fieldset class="chapter" style="display:none" >
+	<legend><i class="awico-file"></i> Глава</legend>
+		<div class="i text medium">
+			<label>
+				Название
+				<span>
+					<input type="text"  class="_name" name="_d[name]">
+				</span>
+			</label>
+		</div>
+		<div class="i textarea">
+			<label>
+				Краткое содержание
+				<span>
+					<textarea name="_d[desc]" class="_desc"></textarea>
+				</span>
+			</label>
+		</div><div class="i textarea">
+			<label>
+				Cодержание
+				<span>
+					<textarea name="_d[content]" class="_content"></textarea>
+				</span>
+			</label>
+		</div>
+		<div class="i text">
+			<label>
+				Ссылка на видео
+				<span>
+					<input type="text"  class="_video" name="_d[video]">
+				</span>
+			</label>
+		</div>
+		<div class="i text">
+			<label>
+				Теги
+				<span>
+					<input type="text"  class="_tags" name="_d[video]">
+				</span>
+			</label>
+		</div>
+		<div class="i button green">
+			<label ><button type="submit">Сохранить главу <i class="awico-ok-sign"></i></button></label>
+		</div>
+
 
 
 </fieldset>

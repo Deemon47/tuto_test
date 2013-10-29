@@ -188,6 +188,7 @@ FIELDSET FIELDSET{margin-left:20px}
 iframe[name=ajax]{display:none;}
 .book textarea{height:300px;}
 ._image {background:url("/images/style/bg/no-image.png") no-repeat center left ;width:100%;height:100px}
-._image img{height:100px}
+._image img{height:100px;margin-left:10px}
 td._edit{font-size:20px;}
 td._edit span{cursor:pointer}
+._chapters li{cursor:s-resize}

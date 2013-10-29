@@ -15,6 +15,8 @@ _.test=
 	'sections_o':false,
 	'selected_section_o':false,
 	'book_o':false,
+	'chapters_o':false,
+	'chapter_o':false,
 	'_init_after':['m_win'],
 	'_init':function()
 	{
@@ -24,11 +26,19 @@ _.test=
 		this.book_o=$('fieldset.book').find('form').submit(function(){
 			return _.test.validBook($(this));
 		}).end();
+		this.chapters_o=this.book_o
+			.find('._chapters').find('ul').on('dblclick','li',function(){
+				elog('','edit');
+			}).sortable({'axis':'y'}).end();
+		this.chapter_o=$('fieldset.chapter');
 		this.selected_section_o=$('._section');
 		_.m_win.add({'index':'confirm','click':'._show_remove','data':{'content':'<p>Вы уверены, что хотите удалить выбранные учебники?</p><div class="i button red"> <label ><button class="_close"><span class="awico-ok"> Да, удалить</span></button></label> </div><div class="i button green"> <label ><button class="_close"> <span class="awico-ban-circle"> Нет, не удалять</span></button></label> </div>'}, /* 'class':'', 'content_prot':'modal_win'*/});
 		_.m_win.win_obj.on('click.remove','.button.red',this.removeSelected);
 		$('._add._book').click(function(){
 			_.test.setBook();
+		});
+		$('._add_chapter').click(function(){
+			_.test.setChapter();
 		});
 		this.pager=_.pager.get(function(){
 
@@ -116,14 +126,35 @@ _.test=
 	{
 		data=$.extend({
 			'id':'new',
-			'description':'',
+			'desc':'',
 			'name':'',
 			'status':'hidden',
 			'image_path':'',
-		},data)
+			'chapters':[],
+		},data);
+
+			this.chapters_o[(arguments.length==0)?'hide':'show']();
 		this.book_o.show()
 			.find('._id').val(data.id).end()
-			.find('._desc').val(data.description).end()
+			.find('._desc').val(data.desc).end()
+			.find('._name').val(data.name).end()
+			.find('._status').prop('checked',data.status=='hidden').end()
+			.find('._image').html((data.image_path==''?'':'<img src="/images/site/'+data.image_path+'" />')).end()
+			.find('input:file').replaceWith('<input type="file" name="image" />');
+		this.chapter_o.hide();
+	},
+	'setChapter':function(data)
+	{
+		data=$.extend({
+			'id':'new',
+			'desc':'',
+			'name':'',
+			'video':'',
+			'content':'',
+		},data);
+		this.chapter_o.show()
+			.find('._id').val(data.id).end()
+			.find('._desc').val(data.desc).end()
 			.find('._name').val(data.name).end()
 			.find('._status').prop('checked',data.status=='hidden').end()
 			.find('._image').html((data.image_path==''?'':'<img src="/images/site/'+data.image_path+'" />')).end()

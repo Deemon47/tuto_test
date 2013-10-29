@@ -47,7 +47,7 @@ else
 			}
 			if($D['id']=='new')
 			{
-				$data=conn::query('INSERT INTO `books`(`section_id`,`name`,`image_path`,`description`)
+				$data=conn::query('INSERT INTO `books`(`section_id`,`name`,`image_path`,`desc`)
 					VALUES('.$D['section'].',"'.$D['name'].'","'.$image_name.'","'.$D['desc'].'")',true);
 			}
 			else
@@ -56,7 +56,7 @@ else
 				conn::query('UPDATE`books` SET `section_id`='.$D['section']
 					.',`name`="'.$D['name']
 					.($image_name==''?'':'",`image_path`="'.$image_name)
-					.'",`description`="'.$D['desc']
+					.'",`desc`="'.$D['desc']
 					.'", `status` ="'.(isset($D['hidden'])?'hidden':'public').'" WHERE id='.$D['id']);
 			}
 			die(print_r([$_POST,$_FILES,elog('elog_return'),$data]).//tmp
@@ -67,14 +67,15 @@ else
 		case 'get_data':
 			if(!isset($D['page'])||!isset($D['limit'])||!isset($D['section']) || !is_numeric($D['section']))
 				break;
-			conn::selectLimited(' b.id,b.`name`,b.image_path,b.description,(SELECT count(c.id) FROM book_chapters c WHERE c.book_id=b.id),status FROM books b where b.section_id='.$D['section'],$D['limit'],$D['page']);
+			conn::selectLimited(' b.id,b.`name`,b.image_path,b.`desc`,(SELECT count(c.id) FROM book_chapters c WHERE c.book_id=b.id),status FROM books b where b.section_id='.$D['section'],$D['limit'],$D['page']);
 			$data=['fields'=>conn::fetchAll(0,MYSQL_NUM),'total'=>conn::foundRows()];
 			break;
 
 		case 'edit_book':
 			if(!is_numeric($D))
 				break;
-			$data=conn::selectOneRow(' id,name,description,image_path,status FROM books WHERE id='.$D);
+			$data=conn::selectOneRow(' id,name,`desc`,image_path,status FROM books WHERE id='.$D);
+			$data->chapters=conn::selectAll('id,name from book_chapters where book_id='.$data->id);
 
 			break;
 		case 'remove_books':
