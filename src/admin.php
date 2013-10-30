@@ -1,5 +1,10 @@
 <?php
 $CONTENT=<<<HTML
+
+
+<div class="i button _show_file_manager">
+	<label ><button type="button">Файловый менеджер</button></label>
+</div>
 <fieldset>
 	<legend><i class="awico-folder-open"></i> Выбор раздела</legend>
 	<div class="_sections">
@@ -7,10 +12,6 @@ $CONTENT=<<<HTML
 	</div>
 
 </fieldset>
-
-<div class="i button _show_file_manager">
-	<label ><button type="button">Файловый менеджер</button></label>
-</div>
 <fieldset>
 	<legend><i class="awico-list-alt"></i> Учебники</legend>
 	<div class="table  books">

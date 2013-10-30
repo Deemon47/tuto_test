@@ -154,7 +154,7 @@ _.test=
 			.find('._id').val(data.id).end()
 			.find('._desc').val(data.desc).end()
 			.find('._sections select:first').val('-').parents('.select').nextAll().remove().end().end().end()
-			.find('._section').val(data.section).end()
+			.find('._section').val(data.section_id).end()
 			.find('._section_name').val(data.section_name).end()
 			.find('._name').val(data.name).end()
 			.find('._status').prop('checked',data.status=='hidden').end()
