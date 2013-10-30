@@ -73,8 +73,8 @@ Options +FollowSymlinks
 
 #Реализация ЧПУ
 	#Есть только одна точка входа php - index.php
-	RewriteCond %{REQUEST_URI} \.php$ [OR]
-	RewriteCond %{REQUEST_URI} !^/(g/|)(images|css|js|fonts)/ [OR]
+	# RewriteCond %{REQUEST_URI} \.php$ [OR]
+	# RewriteCond %{REQUEST_URI} !^/(g/|)(images|css|js|fonts|ckeditor)/ [OR]
 	#Не файл
 	RewriteCond %{REQUEST_FILENAME} !-f
 	#Не точка входа

@@ -12,16 +12,21 @@ _.test=
 	'field_list':[['id',''],['name','Название'],['img','Миниатюра'],['desc','Краткое содержание'],['сtr_count','Количество глав'],['status','Не отображать'],],
 	'table_o':false,
 	'pager':false,
-	'sections_o':false,
 	'selected_section_o':false,
 	'book_o':false,
 	'chapters_o':false,
+	'section_o':false,
 	'chapter_o':false,
 	'chapter':false,
 	'_init_after':['m_win'],
 	'_init':function()
 	{
-		this.sections_o=$('._sections').on('change','select',function(){
+
+		$('._show_file_manager').click(function(){
+			window.open('/fu/elfinder.html','pmw','scrollbars=0,top=0,left=0,resizable=1,width=1000,height=400');return false;
+		});
+		$( 'textarea._content' ).ckeditor();
+		this.section_o=$('._sections').on('change','select',function(){
 			_.test.getSection($(this));
 		});
 		this.book_o=$('fieldset.book').find('form').submit(function(){
@@ -32,8 +37,11 @@ _.test=
 				_.test._ajax($(this).data('id'),{'action':'load_chapter','desc':'Загрузка главы'/*,'sys':false,'params':false*/});
 			}).sortable({'axis':'y'}).end();
 		this.chapter_o=$('fieldset.chapter')
-			.find('._save_chapter').click(this.saveChapter).end();
-		this.selected_section_o=$('._section');
+			.find('._save_chapter').click(this.saveChapter).end()
+			.find('._remove_chapter').click(function(){
+				_.test._ajax(_.test.chapter.id,{'action':'remove_chapter','desc':'Удаление главы'/*,'sys':false,'params':false*/});
+			}).end();
+		this.selected_section_o=$('._sections:first input:hidden');
 		_.m_win.add({'index':'confirm','click':'._show_remove','data':{'content':'<p>Вы уверены, что хотите удалить выбранные учебники?</p><div class="i button red"> <label ><button class="_close"><span class="awico-ok"> Да, удалить</span></button></label> </div><div class="i button green"> <label ><button class="_close"> <span class="awico-ban-circle"> Нет, не удалять</span></button></label> </div>'}, /* 'class':'', 'content_prot':'modal_win'*/});
 		_.m_win.win_obj.on('click.remove','.button.red',this.removeSelected);
 		$('._add._book').click(function(){
@@ -57,7 +65,7 @@ _.test=
 	},
 	'validBook':function()
 	{
-		if(this.selected_section_o.find(':hidden').val()=='')
+		if(this.book_o.find('._sections input:hidden').val()=='')
 		{
 			_.mess.show('Прежде нужно выбрать раздел','error'/*,{'title':'','func':null,'c_delay':10}*/);
 			return false;
@@ -79,34 +87,23 @@ _.test=
 		else
 		_.test._ajax(data,{'action':'remove_books','desc':'Удаление учебников'/*,'sys':false,'params':false*/});
 	},
-	'setSection':function(obj)
-	{
-		var value='',name='-';
-		if(obj !=false)
-		{
-			value=obj.val();
-			name=obj.find(':selected').text();
-		}
-		this.selected_section_o
-			.find('input:hidden').val(value).end()
-			.find('input:text').val(name);
-	},
 	'getSection':function(obj)
 	{
 		var parents=false;
+		var p;
+		var ajax=true;
 		if(arguments.length!=0)
 		{
 			var val=obj.val();
 			parents=[];
 			var p_o=obj.parents('.select:first')
 				.nextAll().remove().end();
+			p=obj.parents('._sections');
 			if(val=='-')
 			{
 				p_o=p_o.prev();
-				this.setSection(p_o.length>0?p_o.find('select'):false);
-
-				this.getData(0,1);
-				return;
+				val=p_o.length>0?p_o.find('select').val():'';
+				ajax=false;
 			}
 			else
 			{
@@ -114,17 +111,24 @@ _.test=
 					parents.push($(this).val());
 				});
 				parents.push(val);
-				this.setSection(obj);
 			}
+			p.find('input:hidden').val(val);
+			if(p.hasClass('_book'))
+			{
+				this.book_o.find('._section_name').val(p_o.find('select :selected').text());
+			}
+			this.getData(10,0);
 		}
-		this._ajax(parents,{'action':'get_section','desc':'Идет загрузка разделов'/*,'sys':false,'params':false*/});
-		this.getData(10,0);
-		this.book_o.hide();
-		this.chapter_o.hide();
+		else
+			p=this.section_o;
+		if(ajax)
+			this._ajax(parents,{'action':'get_section','desc':'Идет загрузка разделов','params':p/*,'sys':false*/});
+		// this.book_o.hide();
+		// this.chapter_o.hide();
 	},
 	'getData':function(limit,page)
 	{
-		this._ajax({'limit':limit,'page':page,'section':this.selected_section_o.find('input:hidden').val()},{'action':'get_data','desc':'Идет загрузка данных',/*,'sys':false,*/});
+		this._ajax({'limit':limit,'page':page,'section':this.selected_section_o.val()},{'action':'get_data','desc':'Идет загрузка данных',/*,'sys':false,*/});
 
 	},
 	'setBook':function(data)
@@ -149,6 +153,9 @@ _.test=
 		this.book_o.show()
 			.find('._id').val(data.id).end()
 			.find('._desc').val(data.desc).end()
+			.find('._sections select:first').val('-').parents('.select').nextAll().remove().end().end().end()
+			.find('._section').val(data.section).end()
+			.find('._section_name').val(data.section_name).end()
 			.find('._name').val(data.name).end()
 			.find('._status').prop('checked',data.status=='hidden').end()
 			.find('._image').html((data.image_path==''?'':'<img src="/images/site/'+data.image_path+'" />')).end()
@@ -173,7 +180,7 @@ _.test=
 			'id':'new',
 			'desc':'',
 			'name':'',
-			'video':'',
+			'video_link':'',
 			'content':'',
 			'tags':'',
 		},data);
@@ -181,9 +188,9 @@ _.test=
 		this.chapter_o.show()
 			.find('._desc').val(data.desc).end()
 			.find('._name').val(data.name).end()
-			.find('._content').val(data.content).end()
-			.find('._video').val(data.video).end()
-			.find('._tags').val(data.tags);
+			.find('._video_link').val(data.video_link).end()
+			.find('._tags').val(data.tags).end()
+			.find('._content').val(data.content);
 	},
 	'_response':function(data,e)
 	{
@@ -238,7 +245,7 @@ _.test=
 				var val=data[key];
 				options+='<option value="'+val.id+'">'+val.name+'</option>'
 			}
-			this.sections_o.append('<div class="i select"> <label> <select >'+options+' </select> </label> </div>');
+			e.params.append('<div class="i select"> <label> <select >'+options+' </select> </label> </div>');
 		}
 		else if(e.action=='remove_books')
 		{
@@ -264,6 +271,13 @@ _.test=
 		else if(e.action=='load_chapter')
 		{
 			this.setChapter(data);
+		}
+		else if(e.action=='remove_chapter')
+		{
+			_.mess.show('Глава удалена','success'/*,{'title':'','func':null,'c_delay':10}*/);
+			this.chapter_o.hide();
+			this.chapters_o.find('[data-id='+this.chapter.id+']').remove();
+
 		}
 		else if(e.action=='save_chapter')
 		{

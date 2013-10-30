@@ -57,7 +57,8 @@ else
 					.',`name`="'.$D['name']
 					.($image_name==''?'':'",`image_path`="'.$image_name)
 					.'",`desc`="'.$D['desc']
-					.'", `status` ="'.(isset($D['hidden'])?'hidden':'public').'" WHERE id='.$D['id']);
+					.'",`section_id`='.$D['section']
+					.', `status` ="'.(isset($D['hidden'])?'hidden':'public').'" WHERE id='.$D['id']);
 				if(isset($D['chapters']))
 				{
 					conn::query('set @a=0;');
@@ -79,9 +80,14 @@ else
 		case 'edit_book':
 			if(!is_numeric($D))
 				break;
-			$data=conn::selectOneRow(' id,name,`desc`,image_path,status FROM books WHERE id='.$D);
+			$data=conn::selectOneRow(' b.*, s.name as section_name FROM books b, sections s WHERE b.id='.$D.' AND b.section_id=s.id');
 			$data->chapters=conn::selectAll('id,name from book_chapters where book_id='.$data->id.' ORDER by `order`');
 
+			break;
+		case 'remove_chapter':
+			if(!is_numeric($D))
+				break;
+			conn::query('DELETE FROM book_chapters WHERE id='.$D);
 			break;
 		case 'remove_books':
 			if(!is_array($D))
@@ -91,14 +97,14 @@ else
 			conn::query('DELETE FROM `books` WHERE id  IN('.$ids.')');
 			break;
 		case 'save_chapter':
-			if(!isset($D['book_id'])||!isset($D['name'])||!isset($D['desc'])||!isset($D['content'])|| !isset($D['video'])||!isset($D['tags'])||!isset($D['id']))
+			if(!isset($D['book_id'])||!isset($D['name'])||!isset($D['desc'])||!isset($D['content'])|| !isset($D['video_link'])||!isset($D['tags'])||!isset($D['id']))
 				break;
 			$data=true;
 			if($D['id']=='new')
-				$data=conn::query('INSERT INTO book_chapters (`name`,video_link,`desc`,`content`,`tags`,book_id)VALUES("'.$D['name'].'","'.$D['video'].'","'.$D['desc'].'","'.$D['content'].'","'.$D['tags'].'",'.$D['book_id'].')',true);
+				$data=conn::query('INSERT INTO book_chapters (`name`,video_link,`desc`,`content`,`tags`,book_id)VALUES("'.$D['name'].'","'.$D['video_link'].'","'.$D['desc'].'","'.$D['content'].'","'.$D['tags'].'",'.$D['book_id'].')',true);
 			else
 				conn::query('UPDATE book_chapters SET `name`="'.$D['name']
-					.'", video_link="'.$D['video']
+					.'", video_link="'.$D['video_link']
 					.'",`desc`="'.$D['desc']
 					.'",`content`="'.$D['content']
 					.'",`tags`="'.$D['tags'].'" WHERE id='.$D['id']);

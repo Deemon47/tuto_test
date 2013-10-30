@@ -3,9 +3,14 @@ $CONTENT=<<<HTML
 <fieldset>
 	<legend><i class="awico-folder-open"></i> Выбор раздела</legend>
 	<div class="_sections">
+		<input type="hidden">
 	</div>
 
 </fieldset>
+
+<div class="i button _show_file_manager">
+	<label ><button type="button">Файловый менеджер</button></label>
+</div>
 <fieldset>
 	<legend><i class="awico-list-alt"></i> Учебники</legend>
 	<div class="table  books">
@@ -38,15 +43,17 @@ $CONTENT=<<<HTML
 						</span>
 					</label>
 				</div>
-				<div class="i text _section">
+				<br>
+				<div class="i text ">
 					<label>
-						Раздел
+						Выбранный раздел
 						<span>
-							<input type="hidden" name="_d[section]" >
-							<input type="text" readonly="" value="-" >
+							<input type="text"  class="_section_name" readonly="" value="-" >
 						</span>
 					</label>
 				</div>
+				<h3>изменить</h3>
+				<div class="_sections _book"><input type="hidden" name="_d[section]" class="_section"></div>
 
 				<div class="i text medium">
 					<div class="_image"><img src="" alt=""></div>
@@ -97,27 +104,19 @@ $CONTENT=<<<HTML
 					<input type="text"  class="_name" name="_d[name]">
 				</span>
 			</label>
+		</div><div class="i text">
+			<label>
+				Ссылка на видео
+				<span>
+					<input type="text"  class="_video_link" name="_d[_video_link]">
+				</span>
+			</label>
 		</div>
 		<div class="i textarea">
 			<label>
 				Краткое содержание
 				<span>
 					<textarea name="_d[desc]" class="_desc"></textarea>
-				</span>
-			</label>
-		</div><div class="i textarea">
-			<label>
-				Cодержание
-				<span>
-					<textarea name="_d[content]" class="_content"></textarea>
-				</span>
-			</label>
-		</div>
-		<div class="i text">
-			<label>
-				Ссылка на видео
-				<span>
-					<input type="text"  class="_video" name="_d[video]">
 				</span>
 			</label>
 		</div>
@@ -129,8 +128,18 @@ $CONTENT=<<<HTML
 				</span>
 			</label>
 		</div>
+		<div class="i full">
+			<label>
+				Cодержание
+				<textarea name="_d[content]" class="_content" ></textarea>
+
+			</label>
+		</div>
 		<div class="i button green ">
 			<label ><button class="_save_chapter">Сохранить главу <i class="awico-ok-sign"></i></button></label>
+		</div>
+		<div class="i button red ">
+			<label ><button class="_remove_chapter">Удалить главу <i class="awico-remove-sign"></i></button></label>
 		</div>
 
 

@@ -43,6 +43,7 @@ if(count($LINKS)>0 && $LINKS[0]=='admin')
 
 	<link rel="stylesheet" href="/css/dee_v.css">
 	<link rel="stylesheet" href="/css/font.css">
+	<link rel="stylesheet" href="/css/jquery-ui.css">
 	<script src="/js/jquery.js"></script>
 	<script src="/js/jquery-ui.js"></script>
 	<script src="/js/engine.js"></script>
@@ -53,6 +54,10 @@ if(count($LINKS)>0 && $LINKS[0]=='admin')
 	<script src="/js/pager.js"></script>
 	<script src="/js/m_win.js"></script>
 	<script src="/js/test.js"></script>
+	<script src="/ckeditor/ckeditor.js"></script>
+	<script src="/ckeditor/adapters/jquery.js"></script>
+	<script src="/fu/js/elfinder.min.js"></script>
+	<script src="/fu/js/i18n/elfinder.ru.js"></script>
 </head>
 <body>
 <div class="m-wrap admin">
